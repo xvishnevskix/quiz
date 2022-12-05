@@ -23,12 +23,12 @@ const questions = [
   },
 ];
 
-function Result({correctValue}) {
+function Result({correctValue, onClickRestart}) {
   return (
     <div className="result">
       <img src="https://cdn-icons-png.flaticon.com/512/2278/2278992.png" />
       <h2>Вы отгадали {correctValue} ответа из {questions.length}</h2>
-      <button>Попробовать снова</button>
+      <button onClick={() => onClickRestart()}>Попробовать снова</button>
     </div>
   );
 }
@@ -64,12 +64,16 @@ function App() {
             setCorrect(correct + 1)
         }
     }
+    const onClickRestart = () => {
+        setStep(0)
+        setCorrect(0)
+    }
   return (
     <div className="App">
 
       { step !== questions.length ? (
           <Game step={step} question={question} onClickVariant={onClickVariant}/>
-      ) : (<Result correctValue={correct}/>)}
+      ) : (<Result onClickRestart={onClickRestart} correctValue={correct}/>)}
     </div>
   );
 }
